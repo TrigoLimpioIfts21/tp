@@ -5,11 +5,11 @@
 | Code Version
 |--------------------------------------------------------------------------
 |
-| This is the version of Open Source Point of Sale you're running
+| This is the version of TRIGO LIMPIO you're running
 |
 |
 */
-$config['application_version'] = '2.0.2';
+$config['application_version'] = '1.0.0';
 
 /*
 |--------------------------------------------------------------------------
