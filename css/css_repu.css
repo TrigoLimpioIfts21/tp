@@ -4,18 +4,39 @@
 .{ padding:0px; margin:0px;}
 
 body{
-	padding:0px;
+	/*padding:0px;
 	margin:0px;
-	background:url(../img/bg-body.jpg) repeat-x top center #FAF9F9;
+/*	background:url(../img/bg-body.jpg) repeat-x top center #FAF9F9;*/
+		/*background:url(../img/bg-body-repuss.jpg) no-repeat  center;
+		background-size: 100% 100%;
+		
+		top: 0;
+		left: 0;
+		/*width: 100%;*/
+		
+
+		
+}
+#background img{
+position: absolute;
+      top: 0;
+    left: 0;
+    width: 90%;
+  
+    z-index: -1;
 }
 
+
+
 .cont-repu{
-	background:url(../img/bg-body-repuss.jpg) no-repeat top center;
 	display:block;
 	padding:0;
 	margin:0 auto;
-	width:1228px;
-	/*overflow:hidden;*/
+/*width:1228px;*/
+			/*overflow:hidden;*/
+float: right;
+/*	width:1228px;*/
+	
 }
 
 	.cont-top-repu
@@ -31,6 +52,7 @@ body{
 		/* box shadow */
 		display:block;
 		overflow:hidden;
+		float: right;
 	}
 		
 		.link-logo

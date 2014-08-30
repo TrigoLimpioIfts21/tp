@@ -5,13 +5,8 @@
 
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/css_repu.css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/css_form.css"/>
-<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/prettyPhoto.css"> 
-	
 <link rel="stylesheet" rev="stylesheet" href="<?php echo base_url();?>css/css_form.css" />
 
-
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title> Sistema Mi Negocio <?php echo $this->lang->line('login_login'); ?></title>
 <script src="<?php echo base_url();?>js/jquery-1.2.6.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
 <script type="text/javascript">
 $(document).ready(function()
@@ -20,35 +15,40 @@ $(document).ready(function()
 });
 </script>
 
-    
+<title> TRIGO LIMPIO <?php echo $this->lang->line('login_login'); ?></title>
+
 </head>
+
 <body>
-<div class="cont-repu">
+<div id="background">
+<img src= ../img/bg-body-repuss.jpg >
+</div>
 
 <?php echo form_open('login') ?>
-
-<div id="container">
 <?php echo validation_errors(); ?>
-	
-		<?php echo $this->lang->line('login_welcome_message'); ?>
-		</div>
-		<br>
-		<div class="register">
-		<div class="cell2">
-			  		                 
-                <label>Sistema Mi Negocio</label>
-								
-        </div>
-		<div class="register">	   
+
+<div id="cont-repu">
+<?php echo $this->lang->line('login_welcome_message'); ?>
+
+		<?php echo date('F d, Y h:i a') ?>
+
+
+<div class="register">
+			  	                 
+               
+				<label>TRIGO LIMPIO</label>				
+      
+ 
+
+			<div class="register">
 		
-		       
-			  <div class="cell1">
+		  		<div class="cell">
 			  		                 
                 <label><?php echo $this->lang->line('login_login'); ?></label>
 								
                </div>
 	
-              <div class="cell">
+              	<div class="cell">
 			  			  
                 <label><?php echo $this->lang->line('login_username'); ?>:</label>
                 
@@ -75,6 +75,7 @@ $(document).ready(function()
 	</div>
 </div>
 <?php echo form_close(); ?>
-</div>
+
+
 </body>
 </html>
