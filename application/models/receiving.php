@@ -26,7 +26,8 @@ class Receiving extends CI_Model
 		'supplier_id'=> $this->Supplier->exists($supplier_id) ? $supplier_id : null,
 		'employee_id'=>$employee_id,
 		'payment_type'=>$payment_type,
-		'comment'=>$comment
+		'comment'=>$comment,
+		'entregado'=>$entregado
 		);
 
 		//Run these queries as a transaction, we want to make sure we do all or nothing

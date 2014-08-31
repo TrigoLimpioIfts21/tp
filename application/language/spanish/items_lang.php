@@ -2,6 +2,7 @@
 $lang['items_item_number']='Upc/Ean/Isbn';
 $lang['items_retrive_item_info']='Obtener Info de Artículo';
 $lang['items_description']='Descripción';
+$lang['more']='.	    +';
 $lang['items_amazon']='Amazon';
 $lang['items_upc_database']='Base de datos UPC';
 $lang['items_cannot_find_item']='No puedo encontrar información acerca del artículo';

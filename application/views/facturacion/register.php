@@ -20,12 +20,14 @@ if (isset($success))
 <?php echo form_open("sales/change_mode",array('id'=>'mode_form')); ?>
 	<span><?php echo $this->lang->line('sales_mode') ?></span>
 <?php echo form_dropdown('mode',$modes,$mode,'onchange="$(\'#mode_form\').submit();"'); ?>
+
 <div id="show_suspended_sales_button">
 	<?php echo anchor("sales/suspended/width:425",
 	"<div class='small_button'><span style='font-size:73%;'>".$this->lang->line('sales_suspended_sales')."</span></div>",
 	array('class'=>'thickbox none','title'=>$this->lang->line('sales_suspended_sales')));
 	?>
 </div>
+
 </form>
 <?php echo form_open("sales/add",array('id'=>'add_item_form')); ?>
 <label id="item_label" for="item">
@@ -245,9 +247,26 @@ else
 				<label id="comment_label" for="comment"><?php echo $this->lang->line('common_comments'); ?>:</label>
 				<?php echo form_textarea(array('name'=>'comment', 'id' => 'comment', 'value'=>$comment,'rows'=>'4','cols'=>'23'));?>
 				<br /><br />
-				<label id="comment_label" for="entregado"><?php echo $this->lang->line('common_comments'); ?>:</label>
-				<?php echo form_textarea(array('name'=>'entregado', 'id' => 'entregado', 'value'=>$entregado,'rows'=>'4','cols'=>'23'));?>
+				
 				<?php
+				
+				if(!empty($entregado))
+				{
+					echo $this->lang->line('sales_email_receipt'). ': '. form_checkbox(array(
+					    'name'        => 'email_receipt',
+					    'id'          => 'email_receipt',
+					    'value'       => '1',
+					    'checked'     => (boolean)$entregado,
+					    )).'<br />('.$entregado.')<br />';
+				}
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				if(!empty($customer_email))
 				{
@@ -419,12 +438,10 @@ $(document).ready(function()
 	{
 		$.post('<?php echo site_url("sales/set_comment");?>', {comment: $('#comment').val()});
 	});
-	
 	$('#entregado').change(function() 
 	{
 		$.post('<?php echo site_url("sales/set_entregado");?>', {entregado: $('#entregado').is(':checked') ? '1' : '0'});
 	});
-	
 	$('#email_receipt').change(function() 
 	{
 		$.post('<?php echo site_url("sales/set_email_receipt");?>', {email_receipt: $('#email_receipt').is(':checked') ? '1' : '0'});

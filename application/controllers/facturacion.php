@@ -2,10 +2,10 @@
 
 require_once ("secure_area.php");
 
-class Sales extends Secure_area {
+class facturacion extends Secure_area {
 
     function __construct() {
-        parent::__construct('sales');
+        parent::__construct('facturacion');
         $this->load->library('sale_lib');
     }
 
@@ -39,7 +39,7 @@ class Sales extends Secure_area {
     function set_comment() {
         $this->sale_lib->set_comment($this->input->post('comment'));
     }
-function set_entregado() {
+ function set_entregado() {
         $this->sale_lib->set_entregado($this->input->post('entregado'));
     }
     function set_email_receipt() {
@@ -166,15 +166,14 @@ function set_entregado() {
         $data['payments'] = $this->sale_lib->get_payments();
         $data['amount_change'] = to_currency($this->sale_lib->get_amount_due() * -1);
         $data['employee'] = $emp_info->first_name . ' ' . $emp_info->last_name;
- $entregado = $this->sale_lib->get_entregado();
- $data['entregado'] = $this->sale_lib->get_entregado();
+		$entregado = $this->sale_lib->get_entregado();
         if ($customer_id != -1) {
             $cust_info = $this->Customer->get_info($customer_id);
             $data['customer'] = $cust_info->first_name . ' ' . $cust_info->last_name;
         }
 
         //SAVE sale to database
-        $data['sale_id'] = 'PEDIDO ' . $this->Sale->save($data['cart'], $customer_id, $employee_id, $comment, $data['payments'], $entregado);
+        $data['sale_id'] = 'PEDIDO ' . $this->Sale->save($data['cart'], $customer_id, $employee_id, $comment, $data['payments'],$entregado );
         if ($data['sale_id'] == 'PEDIDO -1') {
             $data['error_message'] = $this->lang->line('sales_transaction_failed');
         } else {
@@ -256,7 +255,7 @@ function set_entregado() {
             'customer_id' => $this->input->post('customer_id') ? $this->input->post('customer_id') : null,
             'employee_id' => $this->input->post('employee_id'),
             'comment' => $this->input->post('comment'),
-             'entregado' => $this->input->post('entregado')
+            'entregado' => $this->input->post('entregado')
         );
 
         if ($this->Sale->update($sale_data, $sale_id)) {
@@ -301,9 +300,9 @@ function set_entregado() {
             $this->lang->line('sales_giftcard') => $this->lang->line('sales_giftcard'),
             $this->lang->line('sales_debit') => $this->lang->line('sales_debit'),
             $this->lang->line('sales_credit') => $this->lang->line('sales_credit'),
-            ('Cta. Cte')
-        );
-$data['entregado'] = $this->sale_lib->get_entregado();
+            ('Cta. Cte'));
+ 			 $data['entregado'] = $this->sale_lib->get_entregado();
+ 			 
         $customer_id = $this->sale_lib->get_customer();
         if ($customer_id != -1) {
             $info = $this->Customer->get_info($customer_id);
@@ -329,6 +328,7 @@ $data['entregado'] = $this->sale_lib->get_entregado();
         $customer_id = $this->sale_lib->get_customer();
         $employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
         $comment = $this->input->post('comment');
+         $entregado = $this->input->post('entregado');
         $emp_info = $this->Employee->get_info($employee_id);
         $payment_type = $this->input->post('payment_type');
         $data['payment_type'] = $this->input->post('payment_type');
@@ -336,7 +336,7 @@ $data['entregado'] = $this->sale_lib->get_entregado();
         $data['payments'] = $this->sale_lib->get_payments();
         $data['amount_change'] = to_currency($this->sale_lib->get_amount_due() * -1);
         $data['employee'] = $emp_info->first_name . ' ' . $emp_info->last_name;
-$entregado = $this->input->post('entregado');
+
         if ($customer_id != -1) {
             $cust_info = $this->Customer->get_info($customer_id);
             $data['customer'] = $cust_info->first_name . ' ' . $cust_info->last_name;

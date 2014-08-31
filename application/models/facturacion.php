@@ -1,5 +1,5 @@
 <?php
-class Sale extends CI_Model
+class facturacion extends CI_Model
 {
 	public function get_info($sale_id)
 	{
@@ -25,7 +25,7 @@ class Sale extends CI_Model
 		return $success;
 	}
 	
-	function save ($items,$customer_id,$employee_id,$comment,$payments,$sale_id=false)
+	function save ($items,$customer_id,$employee_id,$comment,$payments,$entregado,$sale_id=false)
 	{
 		if(count($items)==0)
 			return -1;
@@ -43,7 +43,8 @@ class Sale extends CI_Model
 			'customer_id'=> $this->Customer->exists($customer_id) ? $customer_id : null,
 			'employee_id'=>$employee_id,
 			'payment_type'=>$payment_types,
-			'comment'=>$comment
+			'comment'=>$comment,
+			'entregado'=>$entregado
 		);
 
 		//Run these queries as a transaction, we want to make sure we do all or nothing
@@ -174,7 +175,7 @@ class Sale extends CI_Model
 	public function create_sales_items_temp_table()
 	{
 		$this->db->query("CREATE TEMPORARY TABLE ".$this->db->dbprefix('sales_items_temp')."
-		(SELECT date(sale_time) as sale_date, ".$this->db->dbprefix('sales_items').".sale_id, comment,payment_type, customer_id, employee_id, 
+		(SELECT date(sale_time) as sale_date, ".$this->db->dbprefix('sales_items').".sale_id, comment,payment_type, entregado, customer_id, employee_id, 
 		".$this->db->dbprefix('items').".item_id, supplier_id, quantity_purchased, item_cost_price, item_unit_price, SUM(percent) as item_tax_percent,
 		discount_percent, (item_unit_price*quantity_purchased-item_unit_price*quantity_purchased*discount_percent/100) as subtotal,
 		".$this->db->dbprefix('sales_items').".line as line, serialnumber, ".$this->db->dbprefix('sales_items').".description as description,

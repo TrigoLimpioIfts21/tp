@@ -35,7 +35,7 @@ $lang['module_item_kits_desc']='Agregar, Actualizar, Borrar y Buscar Kits de Art
 $lang['module_items_web']='Artículos ONLINE';
 $lang['module_items_desc_web']='Buscar artículos ONLINE';
 
-$lang['module_sales_web']='Pedidos ONLINE';
-$lang['module_sales_desc_web']='Procesar Pedidos ONLINE';
+$lang['module_facturacion']='facturacion';
+$lang['module_facturacion_desc']='Procesar facturacion';
 
 ?>

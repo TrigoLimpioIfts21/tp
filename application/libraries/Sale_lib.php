@@ -40,17 +40,26 @@ class Sale_lib
 	{
 		return $this->CI->session->userdata('comment');
 	}
-
+function get_entregado() 
+	{
+		return $this->CI->session->userdata('entregado');
+	}
 	function set_comment($comment) 
 	{
 		$this->CI->session->set_userdata('comment', $comment);
 	}
-
+function set_entregado($entregado) 
+	{
+		$this->CI->session->set_userdata('entregado', $entregado);
+	}
 	function clear_comment() 	
 	{
 		$this->CI->session->unset_userdata('comment');
 	}
-	
+	function clear_entregado() 	
+	{
+		$this->CI->session->unset_userdata('entregado');
+	}
 	function get_email_receipt() 
 	{
 		return $this->CI->session->userdata('email_receipt');
@@ -402,6 +411,7 @@ class Sale_lib
 		}
 		$this->set_customer($this->CI->Sale_suspended->get_customer($sale_id)->person_id);
 		$this->set_comment($this->CI->Sale_suspended->get_comment($sale_id));
+		$this->set_entregado($this->CI->Sale_suspended->get_entregado($sale_id));
 	}
 
 	function delete_item($line)

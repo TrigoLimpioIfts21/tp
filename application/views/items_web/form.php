@@ -13,7 +13,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 </div>
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_name').':', 'name',array('class'=>'required wide')); ?>
+<?php echo form_label($this->lang->line('items_name').':', 'name',array('class'=>'wide')); ?>
 	
     <div class='form_field'>
 	<?php echo $item_info->name;?>
@@ -22,7 +22,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_category').':', 'category',array('class'=>'required wide')); ?>
+<?php echo form_label($this->lang->line('items_category').':', 'category',array('class'=>'wide')); ?>
 	<div class='form_field'>
 	<?php echo 
         $item_info->category;?>
@@ -31,7 +31,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_quantity').':', 'quantity',array('class'=>'required wide')); ?>
+<?php echo form_label($this->lang->line('items_quantity').':', 'quantity',array('class'=>'wide')); ?>
 	<div class='form_field'>
 	<?php echo $item_info->quantity;?>
 	</div>

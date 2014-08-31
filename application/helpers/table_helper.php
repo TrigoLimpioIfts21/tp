@@ -131,8 +131,15 @@ function get_supplier_data_row($supplier,$controller)
 	return $table_data_row;
 }
 
+
 /*
-Gets the html table to manage items.
+-----------------------------------------------------------------
+ITEM e item WEB
+-----------------------------------------------------------------
+*/
+
+/*
+cabecera de tabla ITEM 
 */
 function get_items_manage_table($items,$controller)
 {
@@ -161,7 +168,9 @@ function get_items_manage_table($items,$controller)
 	$table.='</tbody></table>';
 	return $table;
 }
-
+/*
+cabecera de tabla ITEM WEB 
+*/
 function get_items_manage_tablew($items,$controller)
 {
 	$CI =& get_instance();
@@ -171,12 +180,11 @@ function get_items_manage_tablew($items,$controller)
 	$CI->lang->line('items_item_number'),
 	$CI->lang->line('items_name'),
 	$CI->lang->line('items_category'),
-	$CI->lang->line('items_cost_price'),
+	$CI->lang->line('items_description'),
 	$CI->lang->line('items_unit_price'),
-	$CI->lang->line('items_tax_percents'),
-	$CI->lang->line('items_quantity'),
-	'&nbsp;',
-	$CI->lang->line('items_inventory')
+/*	$CI->lang->line('items_tax_percents'),
+	$CI->lang->line('items_quantity'),*/
+	$CI->lang->line('more')
 	);
 	
 	$table.='<thead><tr>';
@@ -185,12 +193,12 @@ function get_items_manage_tablew($items,$controller)
 		$table.="<th>$header</th>";
 	}
 	$table.='</tr></thead><tbody>';
-	$table.=get_items_manage_table_data_rows($items,$controller);
+	$table.=get_items_manage_table_data_rowsw($items,$controller);
 	$table.='</tbody></table>';
 	return $table;
 }
 /*
-Gets the html data rows for the items.
+itinera por cada registro de item
 */
 function get_items_manage_table_data_rows($items,$controller)
 {
@@ -209,7 +217,29 @@ function get_items_manage_table_data_rows($items,$controller)
 	
 	return $table_data_rows;
 }
-
+/*
+itinera por cada registro de item WEB
+*/
+function get_items_manage_table_data_rowsw($items,$controller)
+{
+	$CI =& get_instance();
+	$table_data_rows='';
+	
+	foreach($items->result() as $item)
+	{
+		$table_data_rows.=get_item_data_roww($item,$controller);
+	}
+	
+	if($items->num_rows()==0)
+	{
+		$table_data_rows.="<tr><td colspan='11'><div class='warning_message' style='padding:7px;'>".$CI->lang->line('items_no_items_to_display')."</div></tr></tr>";
+	}
+	
+	return $table_data_rows;
+}
+/*
+introduce valores en cada data row de la tabla.
+*/
 function get_item_data_row($item,$controller)
 {
 	$CI =& get_instance();
@@ -232,7 +262,7 @@ function get_item_data_row($item,$controller)
 	$table_data_row.='<td width="14%">'.to_currency($item->unit_price).'</td>';
 	$table_data_row.='<td width="14%">'.$tax_percents.'</td>';	
 	$table_data_row.='<td width="14%">'.$item->quantity.'</td>';
-//	$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$item->item_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';		
+	$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$item->item_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';		
 	
 	//Ramel Inventory Tracking
 	$table_data_row.='<td width="10%">'.anchor($controller_name."/inventory/$item->item_id/width:$width", $CI->lang->line('common_inv'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_count')))./*'</td>';//inventory count	
@@ -242,7 +272,9 @@ function get_item_data_row($item,$controller)
 	return $table_data_row;
 }
 
-
+/*
+introduce valores en cada data row de la tabla.
+*/
 function get_item_data_roww($item,$controller)
 {
 	$CI =& get_instance();
@@ -260,21 +292,27 @@ function get_item_data_roww($item,$controller)
 	$table_data_row.="<td width='3%'><input type='checkbox' id='item_$item->item_id' value='".$item->item_id."'/></td>";
 	$table_data_row.='<td width="15%">'.$item->item_number.'</td>';
 	$table_data_row.='<td width="20%">'.$item->name.'</td>';
-	$table_data_row.='<td width="14%">'.$item->category.'</td>';
-	$table_data_row.='<td width="14%">'.$tax_percents.'</td>';	
-	$table_data_row.='<td width="14%">'.$item->quantity.'</td>';
-	$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$item->item_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';		
+	$table_data_row.='<td width="15%">'.$item->category.'</td>';
+	$table_data_row.='<td width="35%">'.$item->description.'</td>';
+	$table_data_row.='<td width="20%">'.to_currency($item->unit_price).'</td>';
+
+//	$table_data_row.='<td width="14%">'.$tax_percents.'</td>';	
+//	$table_data_row.='<td width="14%">'.$item->quantity.'</td>';
+	$table_data_row.='<td width="10%">'.anchor($controller_name."/view/$item->item_id/width:$width", $CI->lang->line('common_det'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';		
 	
-	//Ramel Inventory Tracking
-	$table_data_row.='<td width="10%">'.anchor($controller_name."/inventory/$item->item_id/width:$width", $CI->lang->line('common_inv'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_count')))./*'</td>';//inventory count	
-	$table_data_row.='<td width="5%">'*/'&nbsp;&nbsp;&nbsp;&nbsp;'.anchor($controller_name."/count_details/$item->item_id/width:$width", $CI->lang->line('common_det'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_details_count'))).'</td>';//inventory details	
-	
+	/*//Ramel Inventory Tracking
+	$table_data_row.='<td width="10%">'.anchor($controller_name."/inventory/$item->item_id/width:$width", $CI->lang->line('common_inv'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_count'))).'</td>';//inventory count	
+	$table_data_row.='<td width="5%">'.anchor($controller_name."/count_details/$item->item_id/width:$width", $CI->lang->line('common_det'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_details_count'))).'</td>';//inventory details	
+	*/
 	$table_data_row.='</tr>';
 	return $table_data_row;
 }
 
 
-
+/*
+fin ITEM e item WEB
+-----------------------------------------------------------------
+*/
 
 
 /*

@@ -25,6 +25,7 @@ $lang['sales_start_typing_customer_name']='Start Typing customer\'s name...';
 $lang['sales_sub_total']='Sub Total';
 $lang['sales_tax']='Tax';
 $lang['sales_comment']='Comment';
+$lang['sales_entregado']='entregado';
 $lang['sales_unable_to_add_item']='Unable to add item to sale';
 $lang['sales_sale_for_customer']='Customer:';
 $lang['sales_remove_customer']='Remove Customer';

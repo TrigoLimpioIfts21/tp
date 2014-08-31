@@ -25,8 +25,8 @@ function init_table_sorting()
 			headers:
 			{
 				0: { sorter: false},
-				8: { sorter: false},
-				9: { sorter: false}
+				6: { sorter: false}
+				
 			}
 
 		});
@@ -53,8 +53,13 @@ function show_hide_search_filter(search_filter_section, switchImgTag) {
 
 </script>
 
+<div id="title_bar">
+	<div id="title" class="float_left"><?php echo $this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name); ?></div>
+</div>
 
 <?php echo $this->pagination->create_links();?>
+
+
 <div id="table_action_header">
 	<ul>
 		

@@ -30,11 +30,6 @@
 				?>
 			</td>
 			<td><?php echo $suspended_sale['comment'];?></td>
-			
-	<tr>
-		<td></td>
-	</tr>
-
 			<td><?php echo $suspended_sale['entregado'];?></td>
 			<td>
 				<?php 
