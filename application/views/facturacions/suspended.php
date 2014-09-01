@@ -4,6 +4,7 @@
 		<th><?php echo $this->lang->line('sales_date'); ?></th>
 		<th><?php echo $this->lang->line('sales_customer'); ?></th>
 		<th><?php echo $this->lang->line('sales_comments'); ?></th>
+		<th><?php echo $this->lang->line('sales_entregado'); ?></th>
 		<th><?php echo $this->lang->line('sales_unsuspend_and_delete'); ?></th>
 	</tr>
 	
@@ -30,18 +31,42 @@
 				?>
 			</td>
 			<td><?php echo $suspended_sale['comment'];?></td>
-			<td><?php echo $suspended_sale['entregado'];?></td>
+			
+			<td>
+					<?php
+				echo  form_checkbox(array(
+					    'name'        => 'entregado',
+					    'id'          => 'entregado',
+					    'value'       => '1',
+					    'checked'     => (boolean)$suspended_sale['entregado'],
+					    ));
+				?>
+			</td>		
 			<td>
 				<?php 
-				echo form_open('sales/unsuspend');
+				echo form_open('facturacions/unsuspend');
 				echo form_hidden('suspended_sale_id', $suspended_sale['sale_id']);
 				?>
-				<input type="submit" name="submit" value="<?php echo $this->lang->line('sales_unsuspend'); ?>" id="submit" class="submit_button float_right"></td>
-				</form>
+				<input type="submit" name="submit" value="<?php echo $this->lang->line('sales_unsuspend'); ?>" id="submit" class="submit_button float_right">
+			</td>
+			</form>
 		</tr>
 	<?php
 	}
-	
 	?>
 	
 </table>
+<script type="text/javascript" language="javascript">
+$(document).ready(function()
+{
+   
+	
+	$('#entregado').change(function() 
+	{
+		$.post('<?php echo site_url("facturacions/set_entregado");?>', {entregado: $('#entregado').is(':checked') ? '1' : '0'});
+	});
+	
+
+}
+
+</script>

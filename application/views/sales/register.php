@@ -245,8 +245,22 @@ else
 				<label id="comment_label" for="comment"><?php echo $this->lang->line('common_comments'); ?>:</label>
 				<?php echo form_textarea(array('name'=>'comment', 'id' => 'comment', 'value'=>$comment,'rows'=>'4','cols'=>'23'));?>
 				<br /><br />
-				<label id="comment_label" for="entregado"><?php echo $this->lang->line('common_comments'); ?>:</label>
+				
+				
+				<?php
+				echo $this->lang->line('sales_entregado'). ': '. form_checkbox(array(
+					    'name'        => 'entregado',
+					    'id'          => 'entregado',
+					    'value'       => '1',
+					    'checked'     => (boolean)$entregado,
+					    ));
+				?>
+				
+				
+				<!--<label id="comment_label" for="entregado"><?php echo $this->lang->line('common_comments'); ?>:</label>
 				<?php echo form_textarea(array('name'=>'entregado', 'id' => 'entregado', 'value'=>$entregado,'rows'=>'4','cols'=>'23'));?>
+				-->
+				
 				<?php
 				
 				if(!empty($customer_email))

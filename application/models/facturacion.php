@@ -1,5 +1,5 @@
 <?php
-class facturacion extends CI_Model
+class Facturacion extends CI_Model
 {
 	public function get_info($sale_id)
 	{
@@ -25,7 +25,7 @@ class facturacion extends CI_Model
 		return $success;
 	}
 	
-	function save ($items,$customer_id,$employee_id,$comment,$payments,$entregado,$sale_id=false)
+	function save ($items,$customer_id,$employee_id,$comment,$payments,$entregado, $sale_id=false)
 	{
 		if(count($items)==0)
 			return -1;
@@ -169,6 +169,14 @@ class facturacion extends CI_Model
 		$this->db->from('sales');
 		$this->db->where('sale_id',$sale_id);
 		return $this->Customer->get_info($this->db->get()->row()->customer_id);
+	}
+
+
+function get_entregado($sale_id)
+	{
+		$this->db->from('sales');
+		$this->db->where('sale_id',$sale_id);
+		return $this->entregado->get_info($this->db->get()->row()->entregado);
 	}
 
 	//We create a temp table that allows us to do easy report/sales queries

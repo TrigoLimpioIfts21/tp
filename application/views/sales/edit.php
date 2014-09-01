@@ -42,7 +42,14 @@
 	<div class="field_row clearfix">
 	<?php echo form_label($this->lang->line('sales_entregado').':', 'entregado'); ?>
 		<div class='form_field'>
-			<?php echo form_textarea(array('name'=>'entregado','value'=>$sale_info['entregado'],'rows'=>'4','cols'=>'23', 'id'=>'entregado'));?>
+		<?php
+				echo  form_checkbox(array(
+					    'name'        => 'entregado',
+					    'id'          => 'entregado',
+					    'value'       => '0',
+					    'checked'     => (boolean)$sale_info['entregado'],
+					    ));
+				?>
 		</div>
 	</div>
 	<?php

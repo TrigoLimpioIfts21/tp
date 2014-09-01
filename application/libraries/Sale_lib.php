@@ -393,7 +393,7 @@ function set_entregado($entregado)
 			$this->add_payment($row->payment_type,$row->payment_amount);
 		}
 		$this->set_customer($this->CI->Sale->get_customer($sale_id)->person_id);
-
+		//$this->set_entregado($this->CI->Sale->get_entregado($sale_id));
 	}
 	
 	function copy_entire_suspended_sale($sale_id)

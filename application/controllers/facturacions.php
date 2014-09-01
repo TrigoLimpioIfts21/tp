@@ -2,10 +2,10 @@
 
 require_once ("secure_area.php");
 
-class facturacion extends Secure_area {
+class Facturacions extends Secure_area {
 
     function __construct() {
-        parent::__construct('facturacion');
+        parent::__construct('facturacions');
         $this->load->library('sale_lib');
     }
 
@@ -39,9 +39,11 @@ class facturacion extends Secure_area {
     function set_comment() {
         $this->sale_lib->set_comment($this->input->post('comment'));
     }
- function set_entregado() {
+
+	function set_entregado() {
         $this->sale_lib->set_entregado($this->input->post('entregado'));
     }
+
     function set_email_receipt() {
         $this->sale_lib->set_email_receipt($this->input->post('email_receipt'));
     }
@@ -166,14 +168,15 @@ class facturacion extends Secure_area {
         $data['payments'] = $this->sale_lib->get_payments();
         $data['amount_change'] = to_currency($this->sale_lib->get_amount_due() * -1);
         $data['employee'] = $emp_info->first_name . ' ' . $emp_info->last_name;
-		$entregado = $this->sale_lib->get_entregado();
+ $entregado = $this->sale_lib->get_entregado();
+ $data['entregado'] = $this->sale_lib->get_entregado();
         if ($customer_id != -1) {
             $cust_info = $this->Customer->get_info($customer_id);
             $data['customer'] = $cust_info->first_name . ' ' . $cust_info->last_name;
         }
 
         //SAVE sale to database
-        $data['sale_id'] = 'PEDIDO ' . $this->Sale->save($data['cart'], $customer_id, $employee_id, $comment, $data['payments'],$entregado );
+        $data['sale_id'] = 'PEDIDO ' . $this->Sale->save($data['cart'], $customer_id, $employee_id, $comment, $data['payments'], $entregado);
         if ($data['sale_id'] == 'PEDIDO -1') {
             $data['error_message'] = $this->lang->line('sales_transaction_failed');
         } else {
@@ -189,7 +192,7 @@ class facturacion extends Secure_area {
                 $this->email->send();
             }
         }
-        $this->load->view("sales/receipt", $data);
+        $this->load->view("facturacion/receipt", $data);
         $this->sale_lib->clear_all();
     }
 
@@ -208,13 +211,14 @@ class facturacion extends Secure_area {
         $data['payment_type'] = $sale_info['payment_type'];
         $data['amount_change'] = to_currency($this->sale_lib->get_amount_due() * -1);
         $data['employee'] = $emp_info->first_name . ' ' . $emp_info->last_name;
-
+$data['entregado'] = $this->sale_lib->get_entregado();
+$entregado = $this->input->post('entregado');
         if ($customer_id != -1) {
             $cust_info = $this->Customer->get_info($customer_id);
             $data['customer'] = $cust_info->first_name . ' ' . $cust_info->last_name;
         }
         $data['sale_id'] = 'PEDIDO ' . $sale_id;
-        $this->load->view("sales/receipt", $data);
+        $this->load->view("facturacion/receipt", $data);
         $this->sale_lib->clear_all();
     }
 
@@ -234,7 +238,7 @@ class facturacion extends Secure_area {
         $data['sale_info'] = $this->Sale->get_info($sale_id)->row_array();
 
 
-        $this->load->view('sales/edit', $data);
+        $this->load->view('facturacion/edit', $data);
     }
 
     function delete($sale_id) {
@@ -246,7 +250,7 @@ class facturacion extends Secure_area {
             $data['success'] = false;
         }
 
-        $this->load->view('sales/delete', $data);
+        $this->load->view('facturacion/delete', $data);
     }
 
     function save($sale_id) {
@@ -255,7 +259,7 @@ class facturacion extends Secure_area {
             'customer_id' => $this->input->post('customer_id') ? $this->input->post('customer_id') : null,
             'employee_id' => $this->input->post('employee_id'),
             'comment' => $this->input->post('comment'),
-            'entregado' => $this->input->post('entregado')
+             'entregado' => $this->input->post('entregado')
         );
 
         if ($this->Sale->update($sale_data, $sale_id)) {
@@ -301,8 +305,8 @@ class facturacion extends Secure_area {
             $this->lang->line('sales_debit') => $this->lang->line('sales_debit'),
             $this->lang->line('sales_credit') => $this->lang->line('sales_credit'),
             ('Cta. Cte'));
- 			 $data['entregado'] = $this->sale_lib->get_entregado();
- 			 
+		$data['entregado'] = $this->sale_lib->get_entregado();
+
         $customer_id = $this->sale_lib->get_customer();
         if ($customer_id != -1) {
             $info = $this->Customer->get_info($customer_id);
@@ -310,7 +314,7 @@ class facturacion extends Secure_area {
             $data['customer_email'] = $info->email;
         }
         $data['payments_cover_total'] = $this->_payments_cover_total();
-        $this->load->view("sales/register", $data);
+        $this->load->view("facturacion/register", $data);
     }
 
     function cancel_sale() {
@@ -328,7 +332,6 @@ class facturacion extends Secure_area {
         $customer_id = $this->sale_lib->get_customer();
         $employee_id = $this->Employee->get_logged_in_employee_info()->person_id;
         $comment = $this->input->post('comment');
-         $entregado = $this->input->post('entregado');
         $emp_info = $this->Employee->get_info($employee_id);
         $payment_type = $this->input->post('payment_type');
         $data['payment_type'] = $this->input->post('payment_type');
@@ -336,7 +339,8 @@ class facturacion extends Secure_area {
         $data['payments'] = $this->sale_lib->get_payments();
         $data['amount_change'] = to_currency($this->sale_lib->get_amount_due() * -1);
         $data['employee'] = $emp_info->first_name . ' ' . $emp_info->last_name;
-
+        $data['entregado'] = $this->sale_lib->get_entregado();
+$entregado = $this->input->post('entregado');
         if ($customer_id != -1) {
             $cust_info = $this->Customer->get_info($customer_id);
             $data['customer'] = $cust_info->first_name . ' ' . $cust_info->last_name;
@@ -360,7 +364,7 @@ class facturacion extends Secure_area {
     function suspended() {
         $data = array();
         $data['suspended_sales'] = $this->Sale_suspended->get_all()->result_array();
-        $this->load->view('sales/suspended', $data);
+        $this->load->view('facturacion/suspended', $data);
     }
 
     function unsuspend() {
@@ -370,7 +374,3 @@ class facturacion extends Secure_area {
         $this->Sale_suspended->delete($sale_id);
         $this->_reload();
     }
-
-}
-
-?>

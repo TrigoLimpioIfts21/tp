@@ -39,9 +39,11 @@ class Sales extends Secure_area {
     function set_comment() {
         $this->sale_lib->set_comment($this->input->post('comment'));
     }
-function set_entregado() {
+
+	function set_entregado() {
         $this->sale_lib->set_entregado($this->input->post('entregado'));
     }
+
     function set_email_receipt() {
         $this->sale_lib->set_email_receipt($this->input->post('email_receipt'));
     }
@@ -209,7 +211,8 @@ function set_entregado() {
         $data['payment_type'] = $sale_info['payment_type'];
         $data['amount_change'] = to_currency($this->sale_lib->get_amount_due() * -1);
         $data['employee'] = $emp_info->first_name . ' ' . $emp_info->last_name;
-
+$data['entregado'] = $this->sale_lib->get_entregado();
+$entregado = $this->input->post('entregado');
         if ($customer_id != -1) {
             $cust_info = $this->Customer->get_info($customer_id);
             $data['customer'] = $cust_info->first_name . ' ' . $cust_info->last_name;
@@ -301,9 +304,9 @@ function set_entregado() {
             $this->lang->line('sales_giftcard') => $this->lang->line('sales_giftcard'),
             $this->lang->line('sales_debit') => $this->lang->line('sales_debit'),
             $this->lang->line('sales_credit') => $this->lang->line('sales_credit'),
-            ('Cta. Cte')
-        );
-$data['entregado'] = $this->sale_lib->get_entregado();
+            ('Cta. Cte'));
+		$data['entregado'] = $this->sale_lib->get_entregado();
+
         $customer_id = $this->sale_lib->get_customer();
         if ($customer_id != -1) {
             $info = $this->Customer->get_info($customer_id);
@@ -336,6 +339,7 @@ $data['entregado'] = $this->sale_lib->get_entregado();
         $data['payments'] = $this->sale_lib->get_payments();
         $data['amount_change'] = to_currency($this->sale_lib->get_amount_due() * -1);
         $data['employee'] = $emp_info->first_name . ' ' . $emp_info->last_name;
+        $data['entregado'] = $this->sale_lib->get_entregado();
 $entregado = $this->input->post('entregado');
         if ($customer_id != -1) {
             $cust_info = $this->Customer->get_info($customer_id);
