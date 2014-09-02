@@ -192,7 +192,7 @@ class Facturacions extends Secure_area {
                 $this->email->send();
             }
         }
-        $this->load->view("facturacion/receipt", $data);
+        $this->load->view("facturacions/receipt", $data);
         $this->sale_lib->clear_all();
     }
 
@@ -218,7 +218,7 @@ $entregado = $this->input->post('entregado');
             $data['customer'] = $cust_info->first_name . ' ' . $cust_info->last_name;
         }
         $data['sale_id'] = 'PEDIDO ' . $sale_id;
-        $this->load->view("facturacion/receipt", $data);
+        $this->load->view("facturacions/receipt", $data);
         $this->sale_lib->clear_all();
     }
 
@@ -238,7 +238,7 @@ $entregado = $this->input->post('entregado');
         $data['sale_info'] = $this->Sale->get_info($sale_id)->row_array();
 
 
-        $this->load->view('facturacion/edit', $data);
+        $this->load->view('facturacions/edit', $data);
     }
 
     function delete($sale_id) {
@@ -250,7 +250,7 @@ $entregado = $this->input->post('entregado');
             $data['success'] = false;
         }
 
-        $this->load->view('facturacion/delete', $data);
+        $this->load->view('facturacions/delete', $data);
     }
 
     function save($sale_id) {
@@ -314,7 +314,7 @@ $entregado = $this->input->post('entregado');
             $data['customer_email'] = $info->email;
         }
         $data['payments_cover_total'] = $this->_payments_cover_total();
-        $this->load->view("facturacion/register", $data);
+        $this->load->view("facturacions/register", $data);
     }
 
     function cancel_sale() {
@@ -364,7 +364,7 @@ $entregado = $this->input->post('entregado');
     function suspended() {
         $data = array();
         $data['suspended_sales'] = $this->Sale_suspended->get_all()->result_array();
-        $this->load->view('facturacion/suspended', $data);
+        $this->load->view('facturacions/suspended', $data);
     }
 
     function unsuspend() {
@@ -374,3 +374,7 @@ $entregado = $this->input->post('entregado');
         $this->Sale_suspended->delete($sale_id);
         $this->_reload();
     }
+  
+}
+
+?>  

@@ -40,26 +40,32 @@ class Sale_lib
 	{
 		return $this->CI->session->userdata('comment');
 	}
-function get_entregado() 
+
+	function get_entregado() 
 	{
 		return $this->CI->session->userdata('entregado');
 	}
+
 	function set_comment($comment) 
 	{
 		$this->CI->session->set_userdata('comment', $comment);
 	}
-function set_entregado($entregado) 
+
+	function set_entregado($entregado) 
 	{
 		$this->CI->session->set_userdata('entregado', $entregado);
 	}
+
 	function clear_comment() 	
 	{
 		$this->CI->session->unset_userdata('comment');
 	}
+
 	function clear_entregado() 	
 	{
 		$this->CI->session->unset_userdata('entregado');
 	}
+
 	function get_email_receipt() 
 	{
 		return $this->CI->session->userdata('email_receipt');

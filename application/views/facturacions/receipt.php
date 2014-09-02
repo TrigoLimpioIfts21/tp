@@ -15,13 +15,13 @@ if (isset($error_message))
 	<td colspan="6" style='text-align:right;border-top:3px solid #000000;'></td>
 	<tr>
 		<th style="width:40%;"> 	<div id="company_name"><?php echo $this->config->item('company'); ?></div>	</th>
-		<th style="width:45%;">		<div id="company_name"><?php echo "PEDIDO"; ?>	</th>
+		<th style="width:45%;">		<div id="company_name"><?php echo "C"; ?>	</th>
 		<th style="width:35%;">		<div id="sale_id"><?php echo $this->lang->line('sales_idpedido').": ".$sale_id; ?></div> </th>
 	</tr>
 	
 	<tr>	
 		<th style="width:40%;">		<div id="company_address"><?php echo nl2br($this->config->item('address')); ?></div> </th>
-		<td style="width:40%;">		<div id="receipt_general_info"><?php echo "DOCUMENTO NO VALIDO COMO FACTURA"; ?></div> </td>
+		<td style="width:40%;">		<div id="receipt_general_info"><?php echo "FACTURA"; ?></div> </td>
 		<td style="width:35%;">		<div id="sale_time"><?php echo $transaction_time ?></div></td>
 	</tr>
 	

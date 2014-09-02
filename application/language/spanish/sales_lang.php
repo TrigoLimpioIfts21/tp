@@ -2,6 +2,7 @@
 $lang['sales_giftcard_number']='Número de Tarjeta de Regalo';
 $lang['sales_giftcard']='Tarjeta de Regalo';
 $lang['sales_register']='Registro de Ventas';
+$lang['invoice_register']='FACTURACION';
 $lang['sales_mode']='Modo de Registro';
 $lang['sales_new_item'] = 'Artículo Nuevo';
 $lang['sales_item_name'] = 'Artículo';
