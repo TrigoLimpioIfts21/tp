@@ -112,7 +112,8 @@ class Receivings extends Secure_area
 		$emp_info=$this->Employee->get_info($employee_id);
 		$payment_type = $this->input->post('payment_type');
 		$data['payment_type']=$this->input->post('payment_type');
-
+ $data['entregado'] = $this->receiving_lib->get_entregado();
+$entregado = $this->receiving_lib->get_entregado();
 		if ($this->input->post('amount_tendered'))
 		{
 			$data['amount_tendered'] = $this->input->post('amount_tendered');
@@ -127,7 +128,7 @@ class Receivings extends Secure_area
 		}
 
 		//SAVE receiving to database
-		$data['receiving_id']='RECV '.$this->Receiving->save($data['cart'], $supplier_id,$employee_id,$comment,$payment_type);
+		$data['receiving_id']='RECV '.$this->Receiving->save($data['cart'], $supplier_id,$employee_id,$comment,$payment_type,$entregado);
 		
 		if ($data['receiving_id'] == 'RECV -1')
 		{

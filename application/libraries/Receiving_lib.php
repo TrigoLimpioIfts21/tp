@@ -41,7 +41,16 @@ class Receiving_lib
 
 		return $this->CI->session->userdata('recv_mode');
 	}
-
+	
+	
+function get_entregado() 
+	{
+		return '1';
+		
+	}
+	
+	
+	
 	function set_mode($mode)
 	{
 		$this->CI->session->set_userdata('recv_mode',$mode);

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-08-2014 a las 04:29:47
+-- Tiempo de generación: 03-09-2014 a las 07:26:31
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -42,15 +42,15 @@ INSERT INTO `ospos_app_config` (`key`, `value`) VALUES
 ('currency_symbol', '$'),
 ('default_tax_1_name', 'IVA'),
 ('default_tax_1_rate', '21'),
-('default_tax_2_name', 'Impuesto de Ventas 2'),
-('default_tax_2_rate', ''),
+('default_tax_2_name', 'IIBB'),
+('default_tax_2_rate', '3'),
 ('default_tax_rate', '8'),
 ('email', 'admin@TRIGOLIMPIO.COM'),
 ('fax', ''),
 ('language', 'spanish'),
 ('phone', '999-789-6654'),
 ('print_after_sale', 'print_after_sale'),
-('return_policy', 'Test'),
+('return_policy', 'Devoluciones solo dentro de las 24hs.'),
 ('timezone', 'America/Argentina/Buenos_Aires'),
 ('website', '');
 
@@ -99,7 +99,8 @@ CREATE TABLE IF NOT EXISTS `ospos_employees` (
 INSERT INTO `ospos_employees` (`username`, `password`, `person_id`, `deleted`) VALUES
 ('admin', '25d55ad283aa400af464c76d713c07ad', 1, 0),
 ('Mariano', '25d55ad283aa400af464c76d713c07ad', 5, 0),
-('nelson', '25d55ad283aa400af464c76d713c07ad', 6, 0);
+('nelson', '25d55ad283aa400af464c76d713c07ad', 6, 0),
+('oscar', '25d55ad283aa400af464c76d713c07ad', 7, 0);
 
 -- --------------------------------------------------------
 
@@ -139,27 +140,7 @@ CREATE TABLE IF NOT EXISTS `ospos_inventory` (
   PRIMARY KEY (`trans_id`),
   KEY `ospos_inventory_ibfk_1` (`trans_items`),
   KEY `ospos_inventory_ibfk_2` (`trans_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
-
---
--- Volcado de datos para la tabla `ospos_inventory`
---
-
-INSERT INTO `ospos_inventory` (`trans_id`, `trans_items`, `trans_user`, `trans_date`, `trans_comment`, `trans_inventory`) VALUES
-(1, 1, 1, '2014-01-14 04:12:45', 'Edición Manual de Cantidad', 20),
-(2, 1, 1, '2014-01-14 04:19:00', 'PEDIDO 1', -1),
-(3, 2, 1, '2014-01-18 02:11:02', 'Edición Manual de Cantidad', 30),
-(4, 2, 5, '2014-08-19 04:32:27', 'PEDIDO 2', -1),
-(5, 2, 6, '2014-08-20 02:10:35', '', 20),
-(6, 2, 1, '2014-08-20 02:16:16', 'PEDIDO 3', -30),
-(7, 2, 1, '2014-08-20 03:25:44', 'PEDIDO 4', -1),
-(8, 2, 1, '2014-08-20 03:26:50', 'Edición Manual de Cantidad', 0),
-(9, 2, 1, '2014-08-20 03:29:33', 'PEDIDO 5', -33),
-(10, 2, 1, '2014-08-20 03:34:29', 'RECV 1', 3),
-(11, 1, 1, '2014-08-20 03:34:29', 'RECV 1', 1),
-(12, 1, 1, '2014-08-20 03:38:54', 'PEDIDO 6', -1),
-(13, 1, 1, '2014-08-20 03:43:30', 'Edición Manual de Cantidad', 0),
-(14, 2, 1, '2014-08-20 03:45:19', 'Edición Manual de Cantidad', 0);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=65 ;
 
 -- --------------------------------------------------------
 
@@ -192,8 +173,8 @@ CREATE TABLE IF NOT EXISTS `ospos_items` (
 --
 
 INSERT INTO `ospos_items` (`name`, `category`, `supplier_id`, `item_number`, `description`, `cost_price`, `unit_price`, `quantity`, `reorder_level`, `location`, `item_id`, `allow_alt_description`, `is_serialized`, `deleted`) VALUES
-('Polo', 'Ropa', 4, '01239874656', '', 10.00, 33.00, 19.00, 3.00, '', 1, 0, 0, 0),
-('Peluche', 'Regalos', 4, '0123456788', '', 10.00, 25.00, -12.00, 30.00, '', 2, 0, 0, 0);
+('HARINA TRIGO 0000', 'TRIGO', 4, '01239874656', 'BOLSA 30 KG', 10.00, 33.00, -5.00, 3.00, '', 1, 0, 0, 0),
+('PelucheHARINA TRIGO 000', 'Regalos', 4, '0123456788', 'BOLSA 30 KG', 10.00, 25.00, -6.00, 30.00, '', 2, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -213,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `ospos_items_taxes` (
 --
 
 INSERT INTO `ospos_items_taxes` (`item_id`, `name`, `percent`) VALUES
-(1, 'IGV', 18.000),
+(1, 'IVA', 18.000),
 (2, 'IVA', 10.000);
 
 -- --------------------------------------------------------
@@ -234,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `ospos_item_kits` (
 --
 
 INSERT INTO `ospos_item_kits` (`item_kit_id`, `name`, `description`) VALUES
-(1, 'Pack San Valentin', 'Pack por solo por día de los Enamorados del 05 de febrero al 20 de febrero.');
+(1, 'Pack 30+30TRIGO', 'Pack PIZZERIA');
 
 -- --------------------------------------------------------
 
@@ -282,14 +263,15 @@ INSERT INTO `ospos_modules` (`name_lang_key`, `desc_lang_key`, `sort`, `module_i
 ('module_config', 'module_config_desc', 100, 'config'),
 ('module_customers', 'module_customers_desc', 10, 'customers'),
 ('module_employees', 'module_employees_desc', 80, 'employees'),
+('module_facturacion', 'module_facturacion_desc', 71, 'facturacion'),
 ('module_giftcards', 'module_giftcards_desc', 90, 'giftcards'),
 ('module_items', 'module_items_desc', 20, 'items'),
 ('module_items_web', 'module_items_desc_web', 110, 'items_web'),
 ('module_item_kits', 'module_item_kits_desc', 30, 'item_kits'),
-('module_receivings', 'module_receivings_desc', 60, 'receivings'),
+('module_receivings', 'module_receivings_desc', 95, 'receivings'),
 ('module_reports', 'module_reports_desc', 50, 'reports'),
 ('module_sales', 'module_sales_desc', 70, 'sales'),
-('module_suppliers', 'module_suppliers_desc', 40, 'suppliers');
+('module_suppliers', 'module_suppliers_desc', 96, 'suppliers');
 
 -- --------------------------------------------------------
 
@@ -311,19 +293,20 @@ CREATE TABLE IF NOT EXISTS `ospos_people` (
   `comments` text NOT NULL,
   `person_id` int(10) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`person_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `ospos_people`
 --
 
 INSERT INTO `ospos_people` (`first_name`, `last_name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id`) VALUES
-('administrador', 'trigo limpio', '999888777', '', 'Calles 147', '', '', '', '', '', '', 1),
-('Francisco', 'Terrones', '', 'francisco.terronesr@gmail.com', '', '', '', '', '', '', '', 2),
+('administrador', 'trigo limpio', '999888777', 'admin@trigolimpio.com.ar', 'Calles 147', '', '', '', '', '', '', 1),
+('Francisco', 'Terrones', '', 'mjpare@gmail.com', '', '', '', '', '', '', '', 2),
 ('Nadin', 'Heredia', '999654783', 'nadine@gmail.com', '', '', '', '', '', '', '', 3),
 ('Luis ', 'Diaz', '', '', '', '', '', '', '', '', '', 4),
-('Mariano', 'Parente', '', 'mjp@trigolimpio.com', '', '', '', '', '', '', '', 5),
-('nelson', 'aranda', '', '', '', '', '', '', '', '', '', 6);
+('Mariano', 'Parente', '', 'marianoparente@trigolimpio.com.ar', '', '', '', '', '', '', '', 5),
+('nelson', 'aranda', '', 'nelsonaranda@trigolimpio.com.ar', '', '', '', '', '', '', '', 6),
+('Oscar', 'Moreira', '', 'oscarmoreira@trigolimpio.com.ar', '', '', '', '', '', '', '', 7);
 
 -- --------------------------------------------------------
 
@@ -346,17 +329,18 @@ INSERT INTO `ospos_permissions` (`module_id`, `person_id`) VALUES
 ('config', 1),
 ('customers', 1),
 ('employees', 1),
+('facturacion', 1),
+('giftcards', 1),
 ('items', 1),
-('items_web', 1),
-('item_kits', 1),
 ('receivings', 1),
 ('reports', 1),
 ('sales', 1),
 ('suppliers', 1),
 ('items', 5),
 ('sales', 5),
-('customers', 6),
-('items', 6);
+('items_web', 6),
+('customers', 7),
+('items', 7);
 
 -- --------------------------------------------------------
 
@@ -371,17 +355,11 @@ CREATE TABLE IF NOT EXISTS `ospos_receivings` (
   `comment` text NOT NULL,
   `receiving_id` int(10) NOT NULL AUTO_INCREMENT,
   `payment_type` varchar(20) DEFAULT NULL,
+  `entregado` tinyint(1) NOT NULL,
   PRIMARY KEY (`receiving_id`),
   KEY `supplier_id` (`supplier_id`),
   KEY `employee_id` (`employee_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Volcado de datos para la tabla `ospos_receivings`
---
-
-INSERT INTO `ospos_receivings` (`receiving_time`, `supplier_id`, `employee_id`, `comment`, `receiving_id`, `payment_type`) VALUES
-('2014-08-20 03:34:29', 4, 1, '', 1, 'Efectivo');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -403,14 +381,6 @@ CREATE TABLE IF NOT EXISTS `ospos_receivings_items` (
   KEY `item_id` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `ospos_receivings_items`
---
-
-INSERT INTO `ospos_receivings_items` (`receiving_id`, `item_id`, `description`, `serialnumber`, `line`, `quantity_purchased`, `item_cost_price`, `item_unit_price`, `discount_percent`) VALUES
-(1, 1, '', '0', 2, 1, '10.00', 20.00, 0),
-(1, 2, '', '0', 1, 3, '10.00', 10.00, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -424,21 +394,11 @@ CREATE TABLE IF NOT EXISTS `ospos_sales` (
   `comment` text NOT NULL,
   `sale_id` int(10) NOT NULL AUTO_INCREMENT,
   `payment_type` varchar(512) DEFAULT NULL,
+  `entregado` tinyint(1) NOT NULL,
   PRIMARY KEY (`sale_id`),
   KEY `customer_id` (`customer_id`),
   KEY `employee_id` (`employee_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
-
---
--- Volcado de datos para la tabla `ospos_sales`
---
-
-INSERT INTO `ospos_sales` (`sale_time`, `customer_id`, `employee_id`, `comment`, `sale_id`, `payment_type`) VALUES
-('2014-01-14 04:19:00', 3, 1, '0', 1, 'Efectivo: S/. 15.00<br />'),
-('2014-08-19 04:32:26', 2, 5, '', 2, 'Efectivo: $25.00<br />'),
-('2014-08-20 02:16:16', 2, 1, '', 3, 'Efectivo: $891.00<br />'),
-('2014-08-20 03:25:42', 2, 1, '', 4, 'Efectivo: $25.00<br />'),
-('2014-08-20 03:38:51', 2, 1, '0', 6, 'Efectivo: $17.70<br />');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
 
 -- --------------------------------------------------------
 
@@ -460,17 +420,6 @@ CREATE TABLE IF NOT EXISTS `ospos_sales_items` (
   KEY `item_id` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `ospos_sales_items`
---
-
-INSERT INTO `ospos_sales_items` (`sale_id`, `item_id`, `description`, `serialnumber`, `line`, `quantity_purchased`, `item_cost_price`, `item_unit_price`, `discount_percent`) VALUES
-(1, 1, '', '', 1, 1.00, '10.00', 15.00, 0),
-(2, 2, '', '', 1, 1.00, '10.00', 25.00, 0),
-(3, 2, '', '', 1, 30.00, '10.00', 33.00, 10),
-(4, 2, '', '', 1, 1.00, '10.00', 25.00, 0),
-(6, 1, '', '', 1, 1.00, '10.00', 15.00, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -487,13 +436,6 @@ CREATE TABLE IF NOT EXISTS `ospos_sales_items_taxes` (
   KEY `item_id` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `ospos_sales_items_taxes`
---
-
-INSERT INTO `ospos_sales_items_taxes` (`sale_id`, `item_id`, `line`, `name`, `percent`) VALUES
-(6, 1, 1, 'IGV', 18.000);
-
 -- --------------------------------------------------------
 
 --
@@ -506,17 +448,6 @@ CREATE TABLE IF NOT EXISTS `ospos_sales_payments` (
   `payment_amount` decimal(15,2) NOT NULL,
   PRIMARY KEY (`sale_id`,`payment_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `ospos_sales_payments`
---
-
-INSERT INTO `ospos_sales_payments` (`sale_id`, `payment_type`, `payment_amount`) VALUES
-(1, 'Efectivo', '15.00'),
-(2, 'Efectivo', '25.00'),
-(3, 'Efectivo', '891.00'),
-(4, 'Efectivo', '25.00'),
-(6, 'Efectivo', '17.70');
 
 -- --------------------------------------------------------
 
@@ -531,10 +462,11 @@ CREATE TABLE IF NOT EXISTS `ospos_sales_suspended` (
   `comment` text NOT NULL,
   `sale_id` int(10) NOT NULL AUTO_INCREMENT,
   `payment_type` varchar(512) DEFAULT NULL,
+  `entregado` tinyint(1) NOT NULL,
   PRIMARY KEY (`sale_id`),
   KEY `customer_id` (`customer_id`),
   KEY `employee_id` (`employee_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -605,8 +537,7 @@ CREATE TABLE IF NOT EXISTS `ospos_sessions` (
 --
 
 INSERT INTO `ospos_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('59d77aab5c805b4aa5a8c25b3da4b657', '0.0.0.0', 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)', 1409103896, ''),
-('83312af0f35295f6e925de3c6b7441ae', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36', 1408690271, 'a:9:{s:9:"user_data";s:0:"";s:9:"person_id";s:1:"1";s:8:"cartRecv";a:0:{}s:9:"recv_mode";s:7:"receive";s:8:"supplier";i:-1;s:4:"cart";a:0:{}s:9:"sale_mode";s:4:"sale";s:8:"customer";i:-1;s:8:"payments";a:0:{}}');
+('a4321fc5d84ab0894529d073028c1d6c', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.1; rv:31.0) Gecko/20100101 Firefox/31.0', 1409719805, 'a:6:{s:9:"user_data";s:0:"";s:9:"person_id";s:1:"1";s:4:"cart";a:0:{}s:9:"sale_mode";s:4:"sale";s:8:"customer";i:-1;s:8:"payments";a:0:{}}');
 
 -- --------------------------------------------------------
 
@@ -628,7 +559,7 @@ CREATE TABLE IF NOT EXISTS `ospos_suppliers` (
 --
 
 INSERT INTO `ospos_suppliers` (`person_id`, `company_name`, `account_number`, `deleted`) VALUES
-(4, 'Exportaciones e Importaciones S.A.C', '3987456123', 0);
+(4, 'Molienda familiar S.A.C', '3987456123', 0);
 
 --
 -- Restricciones para tablas volcadas

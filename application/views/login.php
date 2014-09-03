@@ -53,8 +53,10 @@ $(document).ready(function()
 
 		<div id="menubar_navigation">
 			<?php
-			/*foreach($allowed_modules->result() as $module)
-			{
+	/*	$data['allowed_modules']=$this->Module->get_allowed_modules('6');	
+			
+			foreach($allowed_modules->result() as $module)
+			
 			?>
 			<div class="menu_item">
 				<a href="<?php echo site_url("$module->module_id");?>">
@@ -62,7 +64,7 @@ $(document).ready(function()
 				<a href="<?php echo site_url("$module->module_id");?>"><?php echo $this->lang->line("module_".$module->module_id) ?></a>
 			</div>
 			<?php
-			}*/
+			*/
 			?>
 <?php echo form_open('login') ?>
 <?php echo validation_errors(); ?>

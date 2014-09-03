@@ -29,13 +29,13 @@ $lang['module_receivings_desc']='Procesar compras y abastecimiento';
 $lang['module_giftcards']='Bonnus';
 $lang['module_giftcards_desc']='Agregar, Actualizar, Borrar y Buscar Tarjetas de Regalo';
 
-$lang['module_item_kits']='Kits';
+$lang['module_item_kits']='Promociones';
 $lang['module_item_kits_desc']='Agregar, Actualizar, Borrar y Buscar Kits de Artículos';
 
 $lang['module_items_web']='Artículos ONLINE';
 $lang['module_items_desc_web']='Buscar artículos ONLINE';
 
-$lang['module_facturacion']='facturacion';
+$lang['module_facturacion']='factura';
 $lang['module_facturacion_desc']='Procesar facturacion';
 
 ?>

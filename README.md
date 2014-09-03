@@ -32,4 +32,24 @@
         |     |  |   |           |     |  |           
         |     |  |___|           |     |  |           
         \_____|__________________|_____|__|
-ok
+
+
+
+==================================================================
+IMPORTAR TABLAS EN PHPADMIN:
+
+DB ====> sales
+
+IMPORTAR SALES.SQL
+
+==================================================================
+
+
+version 1:
+clientes
+Articulos
+
+version 2:
+clientes
+Articulos
+proveedores
