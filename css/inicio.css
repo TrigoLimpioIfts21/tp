@@ -1,0 +1,37 @@
+#bg {
+	position: block;
+	margin:0px;
+	padding:0px;
+	background-color: #F77F45; 
+	width:100%;
+	height:100px;
+	color:#000000;
+}
+video#bgvid { 
+		position: fixed; right: 0; bottom: 0;
+		min-width: 100%; min-height: 100%;
+		width: auto; height: auto; z-index: -100;
+		background: url(Video.mp4) no-repeat;
+		background-size: cover; 
+}
+body{
+	margin: 0px;
+	padding: 0px;
+}
+#header{
+	background-color: #ED9E46;
+	margin: 0px;
+	padding: 0px;
+	position: fixed;
+	width: 100%;
+}
+#login{
+	float: right;
+	margin: 15px;
+}
+#logo{
+	float: left;
+}
+#empresa{
+	float: left;
+}
